@@ -33,7 +33,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     await this.chatService.saveUser(username, client.id);
 
     client.emit('users_list', usersList);
-    this.server.emit('user_conected', {
+    this.server.emit('user_connected', {
       username: username,
       clientId: client.id,
     });
@@ -42,7 +42,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async handleDisconnect(client: Socket) {
     const username = client.handshake.query.username as string;
     await this.chatService.deleteUser(client.id);
-    this.server.emit('user_disconected', {
+    this.server.emit('user_disconnected', {
       username: username,
       clientId: client.id,
     });
